@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Retro UI for SmartC - %version%</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon.png">
+    <script type="module" src="./lib/index.js"></script>
+    <script src="3rd-party/tuicss/tuicss.min.js"></script>
+    <link rel="stylesheet" href="3rd-party/tuicss/tuicss.css"/>
+    <script src="3rd-party/shortcut.js"></script>
+    <script src="3rd-party/codemirror/lib/codemirror.js"></script>
+    <script src="3rd-party/codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="3rd-party/codemirror/addon/edit/closebrackets.js"></script>
+    <script src="3rd-party/codemirror/addon/edit/trailingspace.js"></script>
+    <script src="3rd-party/codemirror/mode/clike/clike.js"></script>
+    <script src="3rd-party/codemirror/addon/fold/foldcode.js"></script>
+    <script src="3rd-party/codemirror/addon/fold/foldgutter.js"></script>
+    <script src="3rd-party/codemirror/addon/fold/brace-fold.js"></script>
+    <script src="3rd-party/codemirror/addon/fold/comment-fold.js"></script>
+    <link  href="3rd-party/codemirror/lib/codemirror.css" rel="stylesheet">
+    <link rel="stylesheet" href="3rd-party/codemirror/addon/fold/foldgutter.css" />
+    <link rel="stylesheet" href="3rd-party/codemirror/theme/abcdef.css">
+    <style>
+        .cm-trailingspace {
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAYAAAB/qH1jAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUXCToH00Y1UgAAACFJREFUCNdjPMDBUc/AwNDAAAFMTAwMDA0OP34wQgX/AQBYgwYEx4f9lQAAAABJRU5ErkJggg==);
+        background-position: bottom left;
+        background-repeat: repeat-x;
+      }
+    </style>
+    <style type="text/css" media="all">
+        .my-content {
+            display: block;
+            height: calc(100vh - 6.4ch);
+        }
+        .my-flex {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            height: 100%;
+        }
+        .my-flex .item {
+            flex-grow: 2;
+        }
+        .my-flex .item:nth-of-type(2) {
+            flex-grow: 1;
+        }
+        .my-border {
+            border: 1px solid salmon;
+            padding: 0.7ch 0.5ch;
+            margin: 0.7ch 0.5ch;
+        }
+        .my-panel {
+            padding: 1px 6px;
+        }
+        .modal-centered {
+            position: fixed;
+            top: 25%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
+            z-index: 101;
+        }
+        .pad1charside {
+            padding-left: 1ch;
+            padding-right: 1ch;
+        }
+        .addscroll {
+            overflow-y: scroll;
+        }
+        body {
+            padding: 2px;
+        }
+        pre {
+            margin: 0;
+        }
+        h3 {
+            font-weight: normal;
+        }
+        ol {
+            padding-left: 4ch;
+        }
+        ol li::marker{
+            color: #a8a800;
+        }
+        .tui-tab.active {
+            color: #a8a8a8;
+            background-color: #000000;
+        }
+        .tui-tab {
+            background-color: #a8a8a8;
+            color: #000;
+        }
+        .tui-input {
+            background-color: #00a8a8;
+            color: #000;
+        }
+        .fullscreen {
+            height: calc(100vh - 2ch);
+            /* width: min(calc(133vh - 1ch), calc(100vw - 1ch)); */
+            width: calc(100vw - 1ch);
+            padding: 2px;
+            /* margin: auto; */
+            overflow:visible;
+        }
+        .message {
+            /* margin: 0 1ch; */
+            padding: 0 1ch;
+            color: white;
+            background-color: #a800a8;
+        }
+        
+        .blink {
+            animation: blinker 1.1s step-start infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+    <body class="black-255 fullscreen white-168-text">
+        <!-- Overlap -->
+        <div class="tui-overlap"></div>
+        <!-- Modal window -->
+        <div id="modal" class="tui-modal">
+            <div class="tui-window  my-panel red-168 left-align">
+                <fieldset class="tui-fieldset">
+                    <legend class="blink yellow-255-text">&nbsp;Alert&nbsp;</legend>
+                    <output id="modal_text"></output>
+                    <br><br>
+                    <div class="tui-divider"></div>
+                    <br>
+                    <button id="close-modal" class="tui-button tui-modal-close-button right" data-modal="modal">Close</button>
+                </fieldset>
+            </div>
+        </div>
+        <!-- Modal2 window -->
+        <div id="modal2" class="tui-modal">
+            <div class="tui-window  my-panel green-168 left-align">
+                <fieldset class="tui-fieldset">
+                    <legend class="blink white-text">&nbsp;Success&nbsp;</legend>
+                    <output id="modal2_text"></output>
+                    <br><br>
+                    <div class="tui-divider"></div>
+                    <br>
+                    <button id="close-modal2" class="tui-button tui-modal-close-button right" data-modal="modal2">Close</button>
+                </fieldset>
+            </div>
+        </div>
+        <!-- Start of page -->
+        <div class="tui-panel blue-168 full-width tui-no-shadow" id="h1_title">
+            &nbsp;Retro UI for SmartC. Running - %version%
+        </div>
+        <div class="tui-tabs white-168">
+            <ul>
+                <li><a class="tui-tab active" data-tab-content="tab-1-content">Code</a></li>
+                <li><a class="tui-tab" data-tab-content="tab-2-content">Assembly</a></li>
+                <li><a class="tui-tab" data-tab-content="tab-3-content">Debug</a></li>
+                <li><a class="tui-tab" data-tab-content="tab-4-content">Deploy</a></li>
+                <li><a class="tui-tab" data-tab-content="tab-5-content">Options</a></li>
+            </ul>
+        </div>
+        <div class="tui-tab-content tui-content my-content addscroll" id="tab-1-content"><!-- Opening page -->
+            <div  class="div_window_source">
+            </div>
+        </div>
+    
+        <div class="tui-tab-content tui-content my-content pad1charside addscroll" id="tab-2-content"><!-- Assembly -->
+            <br>
+            <button id="copy_assembly" class="tui-button">Copy to clipboard</button><br><br>
+            <pre id="assembly_output"></pre>
+        </div>
+        <div class="tui-tab-content tui-content my-content pad1charside addscroll" id="tab-3-content"><!-- Debug -->
+            <br>
+            <pre id="status_output"></pre>
+        </div>
+        <div class="tui-tab-content tui-content my-content pad1charside addscroll" id="tab-4-content"><!-- Deploy -->
+            <br>
+            Not Implemented
+        </div>
+        <div class="tui-tab-content tui-content my-content pad1charside addscroll" id="tab-5-content"><!-- Page Style -->
+            <h3 class="green-168-text">SmartC retro page style</h3>
+            The perfect old-school experience! Use zoom level to 100% to avoid font distortion.<br><br>
+            <label class="tui-checkbox">Nostalgic font<input type="checkbox" id="cbx_nostalgic_font" ><span></span></label>
+            <label class="tui-checkbox">Fullscreen<input type="checkbox" id="cbx_fullscreen" ><span></span></label>
+            <label class="tui-checkbox">Disable auto-save and auto-load<input type="checkbox" id="cbx_disable_auto_save"><span></span></label>
+        </div>
+        <div class="white-168 black-text">
+            &nbsp;<button class='hiddenButton' id='help' data-content="https://github.com/deleterium/SmartC/blob/develop/docs/README.md"><span class="white-text">F1</span>&nbsp;Help</button>
+            <button class='hiddenButton' id="save" data-clicked="<span class='yellow-255-text'>F2&nbsp;Save</span>"><span class="white-text">F2</span>&nbsp;Save</button>
+            <button class='hiddenButton' accesskey="c" id="compile"><span class="white-text">F4</span>&nbsp;Compile</button>
+            <button class='hiddenButton' id="load" data-clicked="<span class='yellow-255-text'>F8&nbsp;Load</span>"><span class="white-text">F8</span>&nbsp;Load</button>
+            <span class="right"><span class="white-text">Time</span> <span class="tui-datetime" data-format="H:m:s"></span>&nbsp;</span>
+        </div>
+    </body>
+</html>

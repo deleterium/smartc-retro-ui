@@ -1,0 +1,52 @@
+/* GENERAL config */
+* {
+    box-sizing: border-box;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: anywhere;
+}
+
+.hiddenButton {
+    all: unset;
+    cursor: pointer;
+}
+
+.asmInstruction {
+    color: #a8a800;
+}
+.asmVariable {
+    color: #a8a8a8;
+}
+.asmComment {
+    color: #6d6d6d;
+}
+.asmDirective {
+    color: #be5d4d;
+    font-weight: bold;
+}
+.asmLabel {
+    color: #0eab00;
+}
+.asmNumber {
+    color: #ac0000;
+}
+.asmError {
+    background-color: rgb(124, 0, 0);
+}
+
+::selection {
+	color: #114;
+	background: rgb(202, 202, 238);
+}
+
+.msg_failure {
+	font-weight: bold;
+	color: red;
+}
+.msg_success {
+	font-weight: bold;
+	color: green;
+}
+

@@ -43,6 +43,13 @@ window.onload = () => {
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
     })
     PageGlobal.myCodeMirror.setOption('theme', 'abcdef')
+    PageGlobal.myCodeMirror.setOption("extraKeys", {
+        Tab: function(cm) {
+            var spaces = Array(cm.getOption("indentUnit") + 1).join(" ")
+            cm.replaceSelection(spaces)
+            //cm.replaceSelection('    ')
+        }
+    });
 
     const startUpTest = new SmartC({
         language: 'C',

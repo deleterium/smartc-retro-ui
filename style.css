@@ -8,29 +8,33 @@ pre {
     word-wrap: anywhere;
 }
 
+#tab-2-content {
+    background-color: rgb(32, 30, 7);
+}
+
 .hiddenButton {
     all: unset;
     cursor: pointer;
 }
 
 .asmInstruction {
-    color: #a8a800;
+    color: yellow;
 }
 .asmVariable {
-    color: #a8a8a8;
+    color: #abcdef;
 }
 .asmComment {
     color: #6d6d6d;
 }
 .asmDirective {
-    color: #be5d4d;
-    font-weight: bold;
+    color: darkgoldenrod;
+    /* font-weight: bold; */
 }
 .asmLabel {
-    color: #0eab00;
+    color: #30aabc;
 }
 .asmNumber {
-    color: #ac0000;
+    color: violet;
 }
 .asmError {
     background-color: rgb(124, 0, 0);

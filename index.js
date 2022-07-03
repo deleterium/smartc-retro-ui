@@ -113,6 +113,9 @@ function compileCode () {
 
         const t1 = new Date()
         let compileMessage = `Compile sucessfull!!!<br>Done at ${t1.getHours()}:${t1.getMinutes()}:${t1.getSeconds()} in ${t1 - t0} ms.`
+        if (bcode.Warnings !== '') {
+            compileMessage = `\n${bcode.Warnings.replace(/\n/g,'<br>')}`
+        }
         compileMessage += `<br>Machine code hash ID: ${bcode.MachineCodeHashId}`
         tuiModalSuccessAlert(compileMessage)
         compileMessage += '\n\n' + JSON.stringify(bcode, null, '    ')

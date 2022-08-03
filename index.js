@@ -125,17 +125,18 @@ function compileCode () {
     } catch (e) {
         document.getElementById('assembly_output').innerHTML = ''
         // clearForm()
-        let compileMessage = `Compile failed<br><br>${e.message}`
+        let compileMessage = `Compile failed<br><br>${e.message.replace(/\n/g,'<br>')}`
         tuiModalErrorAlert(compileMessage)
-        compileMessage += '\n\n' + e.stack
+        compileMessage += '<br><br>' + e.stack
         document.getElementById('status_output').innerHTML = compileMessage
         const lineError = /^At line: (\d+)/.exec(e.message)
         if (lineError !== null) {
             // const debug = PageGlobal.myCodeMirror.getScrollInfo()
-            PageGlobal.myCodeMirror.addLineClass(Number(lineError[1] - 1), 'background', 'asmError')
+            const handler = PageGlobal.myCodeMirror.getLineHandle(Number(lineError[1] - 1))
+            PageGlobal.myCodeMirror.addLineClass(handler, 'background', 'asmError')
             PageGlobal.myCodeMirror.scrollIntoView({ line: lineError[1] - 1, ch: 0 })
             setTimeout(() => {
-                PageGlobal.myCodeMirror.removeLineClass(Number(lineError[1] - 1), 'background', 'asmError')
+                PageGlobal.myCodeMirror.removeLineClass(handler, 'background', 'asmError')
             }, 10000)
         }
     }

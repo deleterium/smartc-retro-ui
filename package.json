@@ -25,7 +25,7 @@
     "dev": "TARGET=dev node esbuild.config.js",
     "lint": "npx eslint",
     "build": "npm run lint && node esbuild.config.js",
-    "start": "npm run build && npx light-server -s . -p 7000 --no-reload"
+    "start": "npm run dev && npx light-server -s . -p 7000 --no-reload"
   },
   "devDependencies": {
     "esbuild": "^0.13.8",

@@ -45,9 +45,8 @@ window.onload = () => {
     PageGlobal.myCodeMirror.setOption('theme', 'abcdef')
     PageGlobal.myCodeMirror.setOption("extraKeys", {
         Tab: function(cm) {
-            var spaces = Array(cm.getOption("indentUnit") + 1).join(" ")
+            let spaces = Array(cm.getOption("indentUnit") + 1).join(" ")
             cm.replaceSelection(spaces)
-            //cm.replaceSelection('    ')
         }
     });
 
@@ -131,7 +130,6 @@ function compileCode () {
         document.getElementById('status_output').innerHTML = compileMessage
         const lineError = /^At line: (\d+)/.exec(e.message)
         if (lineError !== null) {
-            // const debug = PageGlobal.myCodeMirror.getScrollInfo()
             const handler = PageGlobal.myCodeMirror.getLineHandle(Number(lineError[1] - 1))
             PageGlobal.myCodeMirror.addLineClass(handler, 'background', 'asmError')
             PageGlobal.myCodeMirror.scrollIntoView({ line: lineError[1] - 1, ch: 0 })

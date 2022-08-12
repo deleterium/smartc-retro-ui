@@ -69,6 +69,10 @@ window.onload = () => {
     document.title = document.title.replace('%version%', startUpTest.getCompilerVersion())
     const h1TitleDom = document.getElementById('h1_title')
     h1TitleDom.innerHTML = h1TitleDom.innerHTML.replace('%version%', startUpTest.getCompilerVersion())
+    
+    if (document.getElementsByTagName('body')[0].dataset.version !== startUpTest.getCompilerVersion()) {
+        alert("Detect old cache files. Please reload the page with Ctrl+F5.")
+    }
 
     shortcut.add('F1', OpenHelp)
     shortcut.add('F2', SaveSource)

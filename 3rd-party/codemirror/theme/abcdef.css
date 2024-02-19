@@ -23,7 +23,7 @@
 .cm-s-abcdef span.cm-qualifier { color: #FFF700; }
 .cm-s-abcdef span.cm-builtin { color: #30aabc; }
 .cm-s-abcdef span.cm-bracket { color: #8a8a8a; }
-.cm-s-abcdef span.cm-tag { color: #FFDD44; }
+.cm-s-abcdef span.cm-tag { background-color: #588293; }
 .cm-s-abcdef span.cm-attribute { color: #DDFF00; }
 .cm-s-abcdef span.cm-error { color: #FF0000; }
 .cm-s-abcdef span.cm-header { color: aquamarine; /* font-weight: bold; */ }

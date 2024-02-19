@@ -35,6 +35,7 @@ window.onload = () => {
         lineNumbers: true,
         lineWrapping: true,
         matchBrackets: true,
+        highlightSelectionMatches: {showToken: false},
         mode: 'text/x-csrc',
         indentUnit: 4,
         autoCloseBrackets: true,

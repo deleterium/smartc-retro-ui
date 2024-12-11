@@ -60,11 +60,12 @@
         }
         .modal-centered {
             position: fixed;
-            top: 25%;
+            top: 35%;
             left: 50%;
             /* bring your own prefixes */
             transform: translate(-50%, -50%);
             z-index: 101;
+        	max-height: 50%;
         }
         .pad1charside {
             padding-left: 1ch;
@@ -78,6 +79,10 @@
         }
         pre {
             margin: 0;
+        }
+        output {
+            max-height: 70vh;
+            white-space: pre;
         }
         h3 {
             font-weight: normal;
@@ -130,7 +135,7 @@
         <!-- Overlap -->
         <div class="tui-overlap"></div>
         <!-- Modal window -->
-        <div id="modal" class="tui-modal">
+        <div id="modal" class="tui-modal modal-centered">
             <div class="tui-window  my-panel red-168 left-align">
                 <fieldset class="tui-fieldset">
                     <legend class="blink yellow-255-text">&nbsp;Alert&nbsp;</legend>
@@ -143,7 +148,7 @@
             </div>
         </div>
         <!-- Modal2 window -->
-        <div id="modal2" class="tui-modal">
+        <div id="modal2" class="tui-modal modal-centered">
             <div class="tui-window  my-panel green-168 left-align">
                 <fieldset class="tui-fieldset">
                     <legend class="blink white-text">&nbsp;Success&nbsp;</legend>
